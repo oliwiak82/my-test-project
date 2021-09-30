@@ -28,32 +28,11 @@ jobs:
           echo '${{ matrix.domain }} — SSL cert expires in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days, on: ${{ steps.check-domain.outputs.ssl-expire-date }}'
           echo ${{secrets.SLACK_WEBHOOK}}
 
-      - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
-        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 100 }}
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: ssl-monitor
-          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_USERNAME: test
-          SLACK_MESSAGE: 'Post Content :rocket:'
-
-      - name: Slack Notification Custom
-        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 100 }}
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: ssl-monitor
-          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_USERNAME: test
-          SLACK_MESSAGE: 'Post Content :rocket:'
-        run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"$SLACK_MESSAGE"}' $SLACK_WEBHOOK
-
       - name: Send custom JSON data to Slack workflow
         if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 100 }}
         id: slack
         uses: slackapi/slack-github-action@v1.14.0
         with:
-          payload: "{\"channel\":\"ssl-monitor\",\"text\":\"bar\"}" # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: "{\"channel\":\"ssl-monitor\",\"text\":\"SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left\"}" # This data can be any valid JSON from a previous step in the GitHub Action
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
