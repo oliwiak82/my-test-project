@@ -22,4 +22,8 @@ jobs:
 
       - name: Create an issue if SSL lifespan days number is below limit
         if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 100 }}
-        run: echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left'
+        run: |
+          echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-date }}'
+          echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left'
+          echo 'SSL cert has ${{ steps.check-domain.outputs.paid-till-date }}'
+          echo 'SSL cert has ${{ steps.check-domain.outputs.paid-till-days-left }}'
