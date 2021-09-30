@@ -14,6 +14,8 @@ jobs:
         domain:
           - https://codex.so
           - https://editorjs.io
+          - letsinnovatetoday.com
+          - oliwiak.com
     steps:
       - name: Check domain SSL and registry expire date
         id: check-domain
