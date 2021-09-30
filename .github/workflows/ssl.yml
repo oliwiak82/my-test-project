@@ -33,6 +33,11 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.14.0
         with:
-          payload: "{\"channel\":\"ssl-monitor\",\"text\":\"SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left\"}" # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: "{\"channel\":\"$SLACK_CHANNEL\",\"text\":\"SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left\"}" # This data can be any valid JSON from a previous step in the GitHub Action
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: ssl-monitor
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_USERNAME: test
+          SLACK_MESSAGE: 'Post Content :rocket:'
+
