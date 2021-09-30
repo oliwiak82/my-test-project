@@ -3,6 +3,8 @@ name: Check domains
 on:
   schedule:
     - cron:  '*/1 * * * *'
+  push:
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -33,11 +35,12 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.14.0
         with:
-          payload: "{\"channel\":\"${{ env.SLACK_CHANNEL }}\",\"text\":\"SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left\"}" # This data can be any valid JSON from a previous step in the GitHub Action
+          payload: "{\"channel\":\"${{ env.SLACK_CHANNEL }}\",\"text\":\"${{ env.SLACK_TEXT }}\",\"icon_emoji\":\":skull:\",\"username\":\"${{ env.SLACK_USERNAME }}\"}"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: ssl-monitor
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
           SLACK_USERNAME: test
+          SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }}'
           SLACK_MESSAGE: 'Post Content :rocket:'
 
