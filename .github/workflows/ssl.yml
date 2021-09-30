@@ -12,9 +12,6 @@ jobs:
     strategy:
       matrix:
         domain:
-          - https://codex.so
-          - https://editorjs.io
-          - https://letsinnovatetoday.com
           - https://oliwiak.com
     steps:
       - name: Check domain SSL and registry expire date
@@ -23,15 +20,8 @@ jobs:
         with:
           url: ${{ matrix.domain }}
 
-      - name: Create an issue if paid till number is below limit 
-        if: ${{ steps.check-domain.outputs.paid-till-days-left && steps.check-domain.outputs.paid-till-days-left < 10 }}
-        run: |
-          token: ${{ secrets.GITHUB_TOKEN }}
-          echo ${{ matrix.domain }} — registry expiries in ${{ steps.check-domain.outputs.paid-till-days-left }} days
+      - run: echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left'
+        if: ${{ steps.check-domain.outputs.ssl-expire-days-left }}
 
-      - name: Create an issue if SSL lifespan days number is below limit 
-        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 10 }}
-        run: |
-          echo ${{ matrix.domain }} — SSL cert expires in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days
 
           
