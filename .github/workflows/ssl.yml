@@ -37,3 +37,14 @@ jobs:
           SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
           SLACK_USERNAME: test
           SLACK_MESSAGE: 'Post Content :rocket:'
+
+      - name: Slack Notification Custom
+        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 100 }}
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: ssl-monitor
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_USERNAME: test
+          SLACK_MESSAGE: 'Post Content :rocket:'
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"$SLACK_MESSAGE"}' $SLACK_WEBHOOK
