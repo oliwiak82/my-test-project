@@ -25,5 +25,5 @@ jobs:
         run: |
           echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-date }}'
           echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left'
-          echo 'SSL cert has ${{ steps.check-domain.outputs.paid-till-date }}'
-          echo 'SSL cert has ${{ steps.check-domain.outputs.paid-till-days-left }}'
+          echo '${{ matrix.domain }} — SSL cert expires in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days, on: ${{ steps.check-domain.outputs.ssl-expire-date }}'
+
