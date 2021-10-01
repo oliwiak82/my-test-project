@@ -41,6 +41,6 @@ jobs:
           SLACK_CHANNEL: 'ssl-monitor'
           SLACK_COLOR: '#ff00ff'
           SLACK_USERNAME: 'test'
-          SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left days}}'
+          SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days'
           SLACK_MESSAGE: 'Post Content :rocket:'
 
