@@ -48,5 +48,4 @@ jobs:
         uses: alonsohki/slack-webhook-payload@v1
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK }}
-          content: '{ text: "Some message" }'
-
+          content: '{ "text": "Content not set" }'
