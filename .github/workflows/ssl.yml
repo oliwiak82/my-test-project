@@ -35,7 +35,7 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.14.0
         with:
-          payload: "{\"channel\":\"${{ env.SLACK_CHANNEL }}\",\"text\":\"${{ env.SLACK_TEXT }}\",\"icon_emoji\":\":skull:\",\"username\":\"${{ env.SLACK_USERNAME }}\",\"attachments\":[{\"color\":\"${{ env.SLACK_COLOR }}\",\"fields\":[{\"title\":\"Domain:\",\"value\":\"DOMAIN\",\"short\":true}]}]}"
+          payload: '{"channel":"ssl-monitor","text":"Domain https://oliwiak.com will expire in 88 days","icon_emoji":":skull:","username":"test","attachments":[{"color":"#ff00ff","fields":[{"title":"Domain:","value":"DOMAIN","short":true}]}]}'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: 'ssl-monitor'
