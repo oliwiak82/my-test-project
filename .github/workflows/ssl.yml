@@ -48,7 +48,7 @@ jobs:
         uses: alonsohki/slack-webhook-payload@v1
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK }}
-          content: '{"channel":"${{ env.SLACK_CHANNEL }}","text":"${{ env.SLACK_TEXT }}","icon_emoji":":skull:","username":"${{ env.SLACK_USERNAME }}","attachments": [{"color":"#2eb886","title": "Slack API Documentation","title_link": "https://api.slack.com/"},"fields":[{"title":"Domain:","value":"oli.sh","short":true}]]}'
+          content: '{"channel":"${{ env.SLACK_CHANNEL }}","text":"${{ env.SLACK_TEXT }}","icon_emoji":":skull:","username":"${{ env.SLACK_USERNAME }}","attachments":[{"color":"#2eb886","fields":[{"title":"Domain:","value":"oli.sh","short":true},{"title":"Expiry day(s):","value":"89","short":true},{"title":"Expiry date:","value":"Dec 28 12:14:11 2021 GMT","short":true},{"title":"Issued by:","value":"Let's Encrypt","short":true}]}]}'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: 'ssl-monitor'
