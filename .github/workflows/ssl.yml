@@ -33,7 +33,7 @@ jobs:
       - name: Send custom JSON data to Slack workflow
         if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 100 }}
         id: slack
-        uses: slackapi/slack-github-action@v1.14.0
+        uses: slackapi/slack-github-action@v1.15.0
         with:
           payload: '{"channel":"${{ env.SLACK_CHANNEL }}","text":"${{ env.SLACK_TEXT }}","icon_emoji":":skull:","username":"${{ env.SLACK_USERNAME }}","attachments": [{"title": "Slack API Documentation","title_link": "https://api.slack.com/"}]}'
         env:
