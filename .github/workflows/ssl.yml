@@ -48,4 +48,11 @@ jobs:
         uses: alonsohki/slack-webhook-payload@v1
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK }}
-          content: '{ "text": "Content not set" }'
+          content: '{"channel":"${{ env.SLACK_CHANNEL }}","text":"${{ env.SLACK_TEXT }}","icon_emoji":":skull:","username":"${{ env.SLACK_USERNAME }}","attachments": [{"title": "Slack API Documentation","title_link": "https://api.slack.com/"}]}'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_CHANNEL: 'ssl-monitor'
+          SLACK_COLOR: '#ff00ff'
+          SLACK_USERNAME: 'test'
+          SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days'
+          SLACK_MESSAGE: 'Post Content :rocket:'
