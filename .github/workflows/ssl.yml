@@ -44,3 +44,9 @@ jobs:
           SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days'
           SLACK_MESSAGE: 'Post Content :rocket:'
 
+      - name: Send custom JSON
+        uses: alonsohki/slack-webhook-payload@v1
+        with:
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK }}
+          content: '{ text: "Some message" }'
+
