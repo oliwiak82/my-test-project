@@ -35,12 +35,12 @@ jobs:
         id: slack
         uses: slackapi/slack-github-action@v1.14.0
         with:
-          payload: "{\"channel\":\"${{ env.SLACK_CHANNEL }}\",\"text\":\"${{ env.SLACK_TEXT }}\",\"icon_emoji\":\":skull:\",\"username\":\"${{ env.SLACK_USERNAME }}\"}"
+          payload: "{\"channel\":\"${{ env.SLACK_CHANNEL }}\",\"text\":\"${{ env.SLACK_TEXT }}\",\"icon_emoji\":\":skull:\",\"username\":\"${{ env.SLACK_USERNAME }}\",\"attachments\":[{\"color\":\"${{ env.SLACK_COLOR }}\",\"fields\":[{\"title\":\"Domain:\",\"value\":\"DOMAIN\",\"short\":true},{\"title\":\"Expiry day(s):\",\"value\":\"EXPIRY_DAYS\",\"short\":true},{\"title\":\"Expiry date:\",\"value\":\"EXPIRY_DATE\",\"short\":true},{\"title\":\"Issued by:\",\"value\":\"ISSUER\",\"short\":true}]}]}"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: ssl-monitor
-          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
-          SLACK_USERNAME: test
-          SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }}'
+          SLACK_CHANNEL: 'ssl-monitor'
+          SLACK_COLOR: '#ff00ff'
+          SLACK_USERNAME: 'test'
+          SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left days}}'
           SLACK_MESSAGE: 'Post Content :rocket:'
 
