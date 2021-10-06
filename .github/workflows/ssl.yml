@@ -34,8 +34,7 @@ jobs:
           echo '${{ matrix.domain }} — SSL cert expires in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days, on: ${{ steps.check-domain.outputs.ssl-expire-date }}'
           echo ${{secrets.SLACK_WEBHOOK}}
           echo ${{env.DAYS_TO_EXPIRE_CRIT}}
-          OUTPUT=$(echo SSL cert has ${{ steps.check-domain.outputs.ssl-expire-date }} | tail -1)
-          echo "::set-output name=EXPIRE_DATE::$OUTPUT"
+          echo "::set-output name=EXPIRE_DATE::`echo SSL cert has ${{ steps.check-domain.outputs.ssl-expire-date }} | tail -1`"
 
       - name: Test EXPIRE_DATE
         run: |
