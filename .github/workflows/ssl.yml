@@ -1,6 +1,6 @@
 name: Check domains
 env:
-  DAYS_TO_EXPIRE_CRIT: '100'
+  DAYS_TO_EXPIRE_CRIT: 100
 
 on:
   schedule:
