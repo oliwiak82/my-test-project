@@ -17,6 +17,9 @@ jobs:
       matrix:
         domain:
           - https://oliwiak.com
+          - https://oli.sh
+          - https://amaysim.com.au
+          - https://vaya.au.net
 
     steps:
       - name: Check domain SSL and registry expire date
@@ -44,6 +47,5 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: 'ssl-monitor'
           SLACK_COLOR: '#ff00ff'
-          SLACK_USERNAME: 'test'
+          SLACK_USERNAME: 'SSL Checker'
           SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days'
-          SLACK_MESSAGE: 'Post Content :rocket:'
