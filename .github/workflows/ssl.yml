@@ -18,9 +18,9 @@ jobs:
         domain:
           - https://editorjs.io
           - https://oli.sh
-          - https://amaysim.com.au
+          - https://www.amaysim.com.au
           - https://oliwiak.com
-          - https://vaya.au.net
+          - https://www.vaya.au.net
 
     steps:
       - name: Check domain SSL and registry expire date
