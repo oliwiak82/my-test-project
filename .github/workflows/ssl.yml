@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  hello:
+  Check-ssl-for-domain:
     runs-on: ubuntu-latest
     name: Check domain
     strategy:
@@ -25,20 +25,13 @@ jobs:
         with:
           url: ${{ matrix.domain }}
 
-      - name: Create an issue if SSL lifespan days number is below limit
+      - name: Check SSL lifespan days number is below limit
         if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 100 }}
         id: main
         run: |
           echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-date }}'
           echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left'
           echo '${{ matrix.domain }} — SSL cert expires in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days, on: ${{ steps.check-domain.outputs.ssl-expire-date }}'
-          echo ${{secrets.SLACK_WEBHOOK}}
-          echo ${{env.DAYS_TO_EXPIRE_CRIT}}
-          echo "::set-output name=EXPIRE_DATE::`echo SSL cert has ${{ steps.check-domain.outputs.ssl-expire-date }} | tail -1`"
-
-      - name: Test EXPIRE_DATE
-        run: |
-          echo '${{ steps.main.outputs.EXPIRE_DATE }}
 
       - name: Send custom JSON data to Slack workflow
         id: slack
