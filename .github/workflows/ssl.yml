@@ -31,24 +31,12 @@ jobs:
           echo ${{secrets.SLACK_WEBHOOK}}
 
       - name: Send custom JSON data to Slack workflow
-        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 100 }}
         id: slack
-        uses: oliwiak82/slack-github-action@v1.16.0
-        with:
-          payload: '{"channel":"${{ env.SLACK_CHANNEL }}","text":"${{ env.SLACK_TEXT }}","icon_emoji":":skull:","username":"${{ env.SLACK_USERNAME }}","attachments": [{"title": "Slack API Documentation","title_link": "https://api.slack.com/"}]}'
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          SLACK_CHANNEL: 'ssl-monitor'
-          SLACK_COLOR: '#ff00ff'
-          SLACK_USERNAME: 'test'
-          SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days'
-          SLACK_MESSAGE: 'Post Content :rocket:'
-
-      - name: Send custom JSON
+        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 100 }}
         uses: alonsohki/slack-webhook-payload@v1
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK }}
-          content: '{"channel":"${{ env.SLACK_CHANNEL }}","text":"${{ env.SLACK_TEXT }}","icon_emoji":":skull:","username":"${{ env.SLACK_USERNAME }}","attachments":[{"color":"#2eb886","fields":[{"title":"Domain:","value":"${{ matrix.domain }}","short":true},{"title":"Expiry day(s):","value":"${{ steps.check-domain.outputs.ssl-expire-days-left }}","short":true}]}]}'
+          content: '{"channel":"${{ env.SLACK_CHANNEL }}","text":"${{ env.SLACK_TEXT }}","icon_emoji":":skull:","username":"${{ env.SLACK_USERNAME }}","attachments":[{"color":"#2eb886","fields":[{"title":"Domain:","value":"${{ matrix.domain }}","short":true},{"title":"Expiry day(s):","value":"${{ steps.check-domain.outputs.ssl-expire-days-left }}","short":true},{"title": "Slack API Documentation","title_link": "https://api.slack.com/"}]}]}'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: 'ssl-monitor'
