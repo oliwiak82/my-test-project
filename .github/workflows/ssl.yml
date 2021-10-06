@@ -33,6 +33,11 @@ jobs:
           echo '${{ matrix.domain }} — SSL cert expires in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days, on: ${{ steps.check-domain.outputs.ssl-expire-date }}'
           echo ${{secrets.SLACK_WEBHOOK}}
           echo ${{env.DAYS_TO_EXPIRE_CRIT}}
+          OUTPUT=$(${{ steps.check-domain.outputs.ssl-expire-date }} | tail -1) && echo "::set-output name=EXPIRE_DATE::$OUTPUT"
+
+      - name: Test EXPIRE_DATE
+        run: |
+          echo '${{ steps.main.outputs.EXPIRE_DATE }}
 
       - name: Send custom JSON data to Slack workflow
         id: slack
