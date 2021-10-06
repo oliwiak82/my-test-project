@@ -26,12 +26,13 @@ jobs:
           url: ${{ matrix.domain }}
 
       - name: Create an issue if SSL lifespan days number is below limit
-        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < env.DAYS_TO_EXPIRE_CRIT }}
+        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < 100 }}
         run: |
           echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-date }}'
           echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left'
           echo '${{ matrix.domain }} — SSL cert expires in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days, on: ${{ steps.check-domain.outputs.ssl-expire-date }}'
           echo ${{secrets.SLACK_WEBHOOK}}
+          echo ${{env.DAYS_TO_EXPIRE_CRIT}}
 
       - name: Send custom JSON data to Slack workflow
         id: slack
