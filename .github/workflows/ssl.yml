@@ -20,7 +20,7 @@ jobs:
           - https://oli.sh
           - https://www.amaysim.com.au
           - https://oliwiak.com
-          - https://www.vaya.au.net
+          - https://www.vaya.net.au
 
     steps:
       - name: Check domain SSL and registry expire date
