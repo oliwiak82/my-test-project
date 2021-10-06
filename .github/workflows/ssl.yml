@@ -1,4 +1,6 @@
 name: Check domains
+env:
+  DAYS_TO_EXPIRE_CRIT: '100'
 
 on:
   schedule:
@@ -11,8 +13,6 @@ jobs:
   hello:
     runs-on: ubuntu-latest
     name: Check domain
-    env:
-      DAYS_TO_EXPIRE_CRIT: '100'
     strategy:
       matrix:
         domain:
@@ -26,7 +26,7 @@ jobs:
           url: ${{ matrix.domain }}
 
       - name: Create an issue if SSL lifespan days number is below limit
-        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < `${{ env.DAYS_TO_EXPIRE_CRIT }}` }}
+        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < ${{ env.DAYS_TO_EXPIRE_CRIT }} }}
         run: |
           echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-date }}'
           echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left'
