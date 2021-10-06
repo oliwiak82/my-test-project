@@ -16,8 +16,8 @@ jobs:
     strategy:
       matrix:
         domain:
-          - https://editorjs.io
           - https://oli.sh
+          - https://editorjs.io
           - https://www.amaysim.com.au
           - https://oliwiak.com
           - https://www.vaya.net.au
