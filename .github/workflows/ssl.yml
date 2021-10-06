@@ -36,7 +36,7 @@ jobs:
         uses: alonsohki/slack-webhook-payload@v1
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK }}
-          content: '{"channel":"${{ env.SLACK_CHANNEL }}","text":"${{ env.SLACK_TEXT }}","icon_emoji":":skull:","username":"${{ env.SLACK_USERNAME }}","attachments":[{"color":"#2eb886","fields":[{"title":"Domain:","value":"${{ matrix.domain }}","short":true},{"title":"Expiry day(s):","value":"${{ steps.check-domain.outputs.ssl-expire-days-left }}","short":true},{"title":"place holder:","value":"dupa"},{"title":"Expiry date:","value":"${{ steps.check-domain.outputs.ssl-expire-date }}","short":true}]}]}'
+          content: '{"channel":"${{ env.SLACK_CHANNEL }}","text":"${{ env.SLACK_TEXT }}","icon_emoji":":skull:","username":"${{ env.SLACK_USERNAME }}","attachments":[{"color":"#2eb886","fields":[{"title":"Domain:","value":"${{ matrix.domain }}","short":true},{"title":"Expiry day(s):","value":"${{ steps.check-domain.outputs.ssl-expire-days-left }}","short":true},{"title":"Expiry date:","value":"${{ steps.check-domain.outputs.ssl-expire-date }}","short":false}]}]}'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_CHANNEL: 'ssl-monitor'
