@@ -36,7 +36,7 @@ jobs:
 
       - name: Send custom JSON data to Slack workflow
         id: slack
-        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < (env.DAYS_TO_EXPIRE_CRIT) }}
+        if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < fromJSON(env.DAYS_TO_EXPIRE_CRIT) }}
         uses: alonsohki/slack-webhook-payload@v1
         with:
           slack-webhook-url: ${{ secrets.SLACK_WEBHOOK }}
