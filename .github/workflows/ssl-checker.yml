@@ -82,5 +82,5 @@ jobs:
             done
           }
 
-          check_certs $1
+          check_certs ${{ matrix.domain }}
 
