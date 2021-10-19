@@ -34,7 +34,7 @@ jobs:
         run: |
           echo '${{ matrix.domain }}'
           notify() {
-            WEBHOOK=""
+            WEBHOOK="${{ secrets.SLACK_WEBHOOK }}"
             SLACK_CHANNEL="#ssl-monitor"
             SLACK_TEXT="Domain $1 issued by $4 will expire in $2"
             SLACK_BOTNAME="SSL Checker"
