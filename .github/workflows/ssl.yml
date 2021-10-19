@@ -21,6 +21,8 @@ jobs:
           - https://www.amaysim.com.au
           - https://oliwiak.com
           - https://www.vaya.net.au
+          - https://olii.sh
+          - https://oliwiakk.com
 
     steps:
       - name: Check domain SSL and registry expire date
