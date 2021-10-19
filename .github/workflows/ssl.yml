@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: Check domain SSL and registry expire date
         id: check-domain
-        uses: codex-team/action-check-domain@v1
+        uses: codex-team/action-check-domain@v1.2
         with:
           url: ${{ matrix.domain }}
 
@@ -36,6 +36,8 @@ jobs:
           echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-date }}'
           echo 'SSL cert has ${{ steps.check-domain.outputs.ssl-expire-days-left }} days left'
           echo '${{ matrix.domain }} — SSL cert expires in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days, on: ${{ steps.check-domain.outputs.ssl-expire-date }}'
+          echo '${{ matrix.domain }} — registry expiries in ${{ steps.check-domain.outputs.paid-till-days-left }} days'
+          echo 'Paid till: `${{ steps.check-domain.outputs.paid-till-date }}`'
 
       - name: Send custom JSON data to Slack workflow
         id: slack
@@ -50,6 +52,7 @@ jobs:
           SLACK_COLOR: '#ff00ff'
           SLACK_USERNAME: 'SSL Checker'
           SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days'
+
       - name: If Failure
         if: failure()
         id: failure
