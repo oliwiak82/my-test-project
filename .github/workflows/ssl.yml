@@ -55,8 +55,12 @@ jobs:
           SLACK_USERNAME: 'SSL Checker'
           SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days'
 
-      - name: If Failure
-        if: failure()
-        id: failure
-        run: |
-          echo 'Something is wrong'
+      - name: Report Status
+        if: always()
+        uses: ravsamhq/notify-slack-action@v1
+        with:
+          status: ${{ job.status }}
+          notify_when: 'failure'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+
