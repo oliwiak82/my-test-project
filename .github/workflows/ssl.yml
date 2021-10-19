@@ -40,11 +40,6 @@ jobs:
           echo '${{ matrix.domain }} — SSL cert expires in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days, on: ${{ steps.check-domain.outputs.ssl-expire-date }}'
           echo '${{ matrix.domain }} — registry expiries in ${{ steps.check-domain.outputs.paid-till-days-left }} days'
           echo 'Paid till: `${{ steps.check-domain.outputs.paid-till-date }}`'
-
-      - name: Step To run on failure
-        if: always()
-        run: |
-          echo "${{ toJson(github) }}"
           
       - name: Send custom JSON data to Slack workflow
         id: slack
@@ -59,17 +54,3 @@ jobs:
           SLACK_COLOR: '#ff00ff'
           SLACK_USERNAME: 'SSL Checker'
           SLACK_TEXT: 'Domain ${{ matrix.domain }} will expire in ${{ steps.check-domain.outputs.ssl-expire-days-left }} days'
-
-      - name: Report Status
-        if: always()
-        uses: ravsamhq/notify-slack-action@v1
-        with:
-          status: ${{ job.status }}
-          notify_when: 'failure'
-          notification_title: '{workflow} has {status_message}'
-          message_format: '{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>'
-          footer: 'Linked to Repo <{repo_url}|{repo}>'
-          mention_groups_when: 'failure,warnings'
-
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
