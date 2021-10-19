@@ -25,12 +25,8 @@ jobs:
           - https://oliwiakk.com
 
     steps:
-
-
       - name: Check SSL
         id: check-domain
-        with:
-          url: ${{ matrix.domain }}
         run: |
           echo '${{ matrix.domain }}'
           notify() {
