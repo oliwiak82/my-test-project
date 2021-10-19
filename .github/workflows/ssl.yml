@@ -41,6 +41,11 @@ jobs:
           echo '${{ matrix.domain }} — registry expiries in ${{ steps.check-domain.outputs.paid-till-days-left }} days'
           echo 'Paid till: `${{ steps.check-domain.outputs.paid-till-date }}`'
 
+      - name: Step To run on failure
+        if: ${{ failure() }}
+        run: |
+          echo 'FAILURE'
+          
       - name: Send custom JSON data to Slack workflow
         id: slack
         if: ${{ steps.check-domain.outputs.ssl-expire-days-left && steps.check-domain.outputs.ssl-expire-days-left < fromJSON(env.DAYS_TO_EXPIRE_CRIT) }}
@@ -71,5 +76,3 @@ jobs:
 
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
-          
-
