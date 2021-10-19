@@ -16,13 +16,13 @@ jobs:
     strategy:
       matrix:
         domain:
-          - https://oli.sh
-          - https://editorjs.io
-          - https://www.amaysim.com.au
-          - https://oliwiak.com
-          - https://www.vaya.net.au
-          - https://olii.sh
-          - https://oliwiakk.com
+          - oli.sh
+          - editorjs.io
+          - www.amaysim.com.au
+          - oliwiak.com
+          - www.vaya.net.au
+          - olii.sh
+          - oliwiakk.com
 
     steps:
       - name: Check SSL
