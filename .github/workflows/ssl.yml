@@ -42,9 +42,9 @@ jobs:
           echo 'Paid till: `${{ steps.check-domain.outputs.paid-till-date }}`'
 
       - name: Step To run on failure
-        if: ${{ failure() }}
+        if: always()
         run: |
-          echo 'FAILURE'
+          echo "${{ toJson(github) }}"
           
       - name: Send custom JSON data to Slack workflow
         id: slack
